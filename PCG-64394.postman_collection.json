@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "4a2e4662-0249-4715-9d17-591ef20d0443",
+		"name": "PCG-64394",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Мое здоровье Телемедицина",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"const jsondata = JSON.parse(responseBody)\r",
+							"// объект - запрос\r",
+							"const requests = JSON.parse(request.data)\r",
+							"const moment = require('moment')\r",
+							"\r",
+							"console.log \r",
+							"({\r",
+							"        \"moment\" : moment().add(3,'hours'),\r",
+							"        \"requestName\" : request.name,\r",
+							"        \"requesturl\" : request.url,\r",
+							"        \"series\" : requests.BusinessData.Contract.Contracts.Contract[0].Header.Series,\r",
+							"        \"number\" : requests.BusinessData.Contract.Contracts.Contract[0].Header.Number,\r",
+							"        \"CorrelationId\" : jsondata.TechnicalData.CorrelationId\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var moment = require('moment')\r",
+							"pm.collectionVariables.set(\"SIGNdateZabota\",moment().subtract(15,'Days').format('YYYY-MM-DD'))\r",
+							"pm.collectionVariables.set(\"STARTdateZabota\",moment().add(2,'Days').format('YYYY-MM-DD'))\r",
+							"pm.collectionVariables.set(\"ENDdateZabota\",moment().add(1,'Days').add(1,'Year').format('YYYY-MM-DD'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "gw",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "su",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"TechData\": {\r\n        \"CorrelationId\": \"{{$randomUUID}}\",\r\n        \"ActionId\": \"0082b1da-24e8-4ff0-89d7-530dd535b92d\"\r\n    },\r\n    \"BusinessData\": {\r\n        \"BaseProductName\": \"PersonRGS\",\r\n        \"ContrAgent\": {\r\n            \"AgentLNR\": \"1454271\",\r\n            \"BranchCode\": 16207320,\r\n            \"SkName\": \"ECOSYS\"\r\n        },\r\n        \"Contract\": {\r\n            \"ContractsCount\": 1,\r\n            \"schemaVersion\": \"1.0\",\r\n            \"Contracts\": {\r\n                \"Contract\": [\r\n                    {\r\n                        \"Header\": {\r\n                            \"ContractId\": {\r\n                                \"Id\": \"145698758\",\r\n                                \"SysId\": \"AVINFORS\",\r\n                                \"Type\": \"CONTRACT\"\r\n                            },\r\n                            \"ContractVersionNumber\": 1,\r\n                            \"MainContractId\": {\r\n                                \"Id\": \"145698758\",\r\n                                \"SysId\": \"AVINFORS\",\r\n                                \"Type\": \"CONTRACT\"\r\n                            },\r\n                            \"ProductId\": {\r\n                                \"Id\": \"otmrgs_s_box\",\r\n                                \"SysId\": \"AVINFORS\",\r\n                                \"Type\": \"PRODUCT_TYPE\"\r\n                            },\r\n                            \"EntityTypeId\": {\r\n                                \"Id\": \"1\",\r\n                                \"SysId\": \"XML\",\r\n                                \"Type\": \"ENTITY_TYPE\"\r\n                            },\r\n                            \"Series\": \"0073\",\r\n                            \"Number\": \"{{NumberZabota}}\",\r\n                            \"SignDate\": \"{{SIGNdateZabota}}T00:00:00Z\",\r\n                            \"StartDate\": \"{{STARTdateZabota}}T00:00:00\",\r\n                            \"EndDate\": \"{{ENDdateZabota}}T00:00:00Z\",\r\n                            \"Currency\": {\r\n                                \"CurName\": \"RUB\",\r\n                                \"CurRate\": 1,\r\n                                \"CurDate\": \"2021-06-03T00:00:00Z\"\r\n                            },\r\n                            \"ContractStateSecret\": false,\r\n                            \"InsurerId\": {\r\n                                \"Id\": \"8cea3ca88e57192c09d17b815b4a8c3c\",\r\n                                \"SysId\": \"SCC2\",\r\n                                \"Type\": \"PERSON\"\r\n                            },\r\n                            \"SaleChannelId\": {\r\n                                \"Id\": \"120\",\r\n                                \"SysId\": \"SCC2\",\r\n                                \"Type\": \"DICTSALECHANNELTYPE200\"\r\n                            },\r\n                            \"Brokers\": {\r\n                                \"Broker\": [\r\n                                    {\r\n                                        \"PersonId\": {\r\n                                            \"Id\": \"1596f4f575709efca8bd9320674f330f\",\r\n                                            \"SysId\": \"SCC2\",\r\n                                            \"Type\": \"PERSON\"\r\n                                        },\r\n                                        \"Code\": \"1588426\"\r\n                                    }\r\n                                ]\r\n                            },\r\n                            \"InsurancePremiumFull\": 6000.0,\r\n                            \"InsurancePremiumFullRUB\": 6000.0,\r\n                            \"InsuranceSumFull\": 250000.0,\r\n                            \"InsuranceSumFullRUB\": 250000.0\r\n                        },\r\n                        \"Persons\": {\r\n                            \"Person\": [\r\n                                {\r\n                                    \"PersonId\": {\r\n                                        \"Id\": \"8cea3ca88e57192c09d17b815b4a8c3c\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"PERSONS\"\r\n                                    },\r\n                                    \"CountryCode\": \"643\",\r\n                                    \"PersonTypeId\": {\r\n                                        \"Id\": \"1\",\r\n                                        \"SysId\": \"XML\",\r\n                                        \"Type\": \"PERSON_TYPE\"\r\n                                    },\r\n                                    \"FirstNameRus\": \"{{firstNameENV}}\",\r\n                                    \"LastNameRus\": \"{{lastNameENV}}\",\r\n                                    \"MiddleNameRus\": \"{{middlenameENV}}\",\r\n                                    \"ShortNameRus\": \"{{lastNameENV}} {{firstNameENV}} {{middlenameENV}}\",\r\n                                    \"Birthday\": \"1990-09-08T00:00:00Z\",\r\n                                    \"Gender\": \"M\",\r\n                                    \"IsResident\": true,\r\n                                    \"Phones\": {\r\n                                        \"Phone\": [\r\n                                            {\r\n                                                \"TypeId\": {\r\n                                                    \"Id\": \"4\",\r\n                                                    \"SysId\": \"XML\",\r\n                                                    \"Type\": \"PHONE_TYPE\"\r\n                                                },\r\n                                                \"FullNumber\": \"+7(987)659-45-64\",\r\n                                                \"CountryCode\": \"7\",\r\n                                                \"Prefix\": \"987\",\r\n                                                \"Number\": \"6544567\"\r\n                                            }\r\n                                        ]\r\n                                    },\r\n                                    \"Documents\": {\r\n                                        \"Document\": [\r\n                                            {\r\n                                                \"DocTypeId\": {\r\n                                                    \"Id\": \"012\",\r\n                                                    \"SysId\": \"XML\",\r\n                                                    \"Type\": \"DOCUMENT_TYPE\"\r\n                                                },\r\n                                                \"DocSeries\": \"8456\",\r\n                                                \"DocNumber\": \"884864\"\r\n                                            }\r\n                                        ]\r\n                                    },\r\n                                    \"Emails\": {\r\n                                        \"Email\": [\r\n                                            {\r\n                                                \"EmailTypeId\": {\r\n                                                    \"Id\": \"1\",\r\n                                                    \"SysId\": \"XML\",\r\n                                                    \"Type\": \"EMAIL_TYPE\"\r\n                                                },\r\n                                                \"EmailAddress\": \"trr@trr.ru\"\r\n                                            }\r\n                                        ]\r\n                                    },\r\n                                    \"IsPublic\": false,\r\n                                    \"IsPublicRelative\": false\r\n                                },\r\n                                {\r\n                                    \"PersonId\": {\r\n                                        \"Id\": \"1596f4f575709efca8bd9320674f330f\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"PERSONS\"\r\n                                    },\r\n                                    \"CountryCode\": \"643\",\r\n                                    \"PersonTypeId\": {\r\n                                        \"Id\": \"1\",\r\n                                        \"SysId\": \"XML\",\r\n                                        \"Type\": \"PERSON_TYPE\"\r\n                                    },\r\n                                    \"FirstNameRus\": \"Андрей\",\r\n                                    \"LastNameRus\": \"Коробков\",\r\n                                    \"MiddleNameRus\": \"Олегович\",\r\n                                    \"Birthday\": \"1996-01-07T00:00:00Z\",\r\n                                    \"IsResident\": true,\r\n                                    \"IsPublic\": false,\r\n                                    \"IsPublicRelative\": false,\r\n                                    \"Gender\": \"M\",\r\n                                    \"Phones\": {\r\n                                        \"Phone\": [\r\n                                            {\r\n                                                \"TypeId\": {\r\n                                                    \"Id\": \"4\",\r\n                                                    \"SysId\": \"XML\",\r\n                                                    \"Type\": \"PHONE_TYPE\"\r\n                                                },\r\n                                                \"FullNumber\": \"+7(987)659-45-64\",\r\n                                                \"CountryCode\": \"7\",\r\n                                                \"Prefix\": \"987\",\r\n                                                \"Number\": \"6594564\"\r\n                                            }\r\n                                        ]\r\n                                    },\r\n                                    \"Documents\": {\r\n                                        \"Document\": [\r\n                                            {\r\n                                                \"DocTypeId\": {\r\n                                                    \"Id\": \"012\",\r\n                                                    \"SysId\": \"XML\",\r\n                                                    \"Type\": \"DOCUMENT_TYPE\"\r\n                                                },\r\n                                                \"DocSeries\": \"8656\",\r\n                                                \"DocNumber\": \"864764\"\r\n                                            }\r\n                                        ]\r\n                                    }\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"InsuredObjects\": {\r\n                            \"Person\": [\r\n                                {\r\n                                    \"ObjectId\": {\r\n                                        \"Id\": \"obj8cea3ca88e57192c09d17b815b4a8c3c\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"INSUREDOBJECT\"\r\n                                    },\r\n                                    \"PersonId\": {\r\n                                        \"Id\": \"8cea3ca88e57192c09d17b815b4a8c3c\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"PERSON\"\r\n                                    },\r\n                                    \"InsuranceVariant\": {\r\n                                        \"Id\": \"1\",\r\n                                        \"SysId\": \"AVINFORS\",\r\n                                        \"Type\": \"D_INSVARIANT\"\r\n                                    }\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"Coverage\": {\r\n                            \"Cover\": [\r\n                                {\r\n                                    \"CoverId\": {\r\n                                        \"Id\": \"e463b8931285bc57d92db92c56c6408d\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"COVER\"\r\n                                    },\r\n                                    \"InsuredObjectId\": {\r\n                                        \"Id\": \"obj8cea3ca88e57192c09d17b815b4a8c3c\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"INSUREDOBJECT\"\r\n                                    },\r\n                                    \"CoverTypeId\": {\r\n                                        \"Id\": \"telemedicine\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"DICTRISKOBJECTTYPE_22\"\r\n                                    },\r\n                                    \"InsSum\": 250000.0,\r\n                                    \"InsPrem\": 6000.0,\r\n                                    \"Currency\": {\r\n                                        \"CurName\": \"RUB\",\r\n                                        \"CurRate\": 1,\r\n                                        \"CurDate\": \"2021-06-03T00:00:00Z\"\r\n                                    },\r\n                                    \"InsuranceSumRUB\": 250000.0,\r\n                                    \"InsurancePremiumRUB\": 6000.0\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"PaymentScheduleList\": {\r\n                            \"PaymentSchedule\": [\r\n                                {\r\n                                    \"PaymentSum\": 6000,\r\n                                    \"Currency\": {\r\n                                        \"CurName\": \"RUB\",\r\n                                        \"CurRate\": 1,\r\n                                        \"CurDate\": \"2021-06-03T00:00:00Z\"\r\n                                    },\r\n                                    \"PaymentSumRUB\": 6000,\r\n                                    \"PaymentDeadLineDate\": \"2021-06-03T00:00:00Z\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"Invoices\": {\r\n                            \"Invoice\": [\r\n                                {\r\n                                    \"InvoiceId\": {\r\n                                        \"Id\": \"1582626298910625\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"INVOICE\"\r\n                                    },\r\n                                    \"Number\": \"56456465456\",\r\n                                    \"BranchCode\": \"41250010\",\r\n                                    \"PaymentMethodId\": {\r\n                                        \"Id\": \"1\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"INVOICE\"\r\n                                    },\r\n                                    \"Date\": \"2021-06-03T21:00:00Z\",\r\n                                    \"Currency\": {\r\n                                        \"CurName\": \"RUB\",\r\n                                        \"CurRate\": 1,\r\n                                        \"CurDate\": \"2021-06-03T00:00:00Z\"\r\n                                    },\r\n                                    \"PaymentSum\": 6000,\r\n                                    \"InvoiceProperties\": {\r\n                                        \"Property\": [\r\n                                            {\r\n                                                \"Key\": \"PaymentDocumentTypeId\",\r\n                                                \"Value\": \"19\"\r\n                                            },\r\n                                            {\r\n                                                \"Key\": \"Number\",\r\n                                                \"Value\": \"56456465456\"\r\n                                            }\r\n                                        ]\r\n                                    }\r\n                                }\r\n                            ]\r\n                        }\r\n                    }\r\n                ]\r\n            }\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/rest/policyservice/register",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"rest",
+						"policyservice",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Мой Юрист. Налоговая помощь",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"const jsondata = JSON.parse(responseBody)\r",
+							"// объект - запрос\r",
+							"const requests = JSON.parse(request.data)\r",
+							"const moment = require('moment')\r",
+							"\r",
+							"console.log \r",
+							"({\r",
+							"        \"moment\" : moment().add(3,'hours'),\r",
+							"        \"requestName\" : request.name,\r",
+							"        \"requesturl\" : request.url,\r",
+							"        \"series\" : requests.BusinessData.Contract.Contracts.Contract[0].Header.Series,\r",
+							"        \"number\" : requests.BusinessData.Contract.Contracts.Contract[0].Header.Number,\r",
+							"        \"CorrelationId\" : jsondata.TechnicalData.CorrelationId\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var moment = require('moment')\r",
+							"pm.collectionVariables.set(\"SIGNdateZabota\",moment().subtract(15,'Days').format('YYYY-MM-DD'))\r",
+							"pm.collectionVariables.set(\"STARTdateZabota\",moment().add(2,'Days').format('YYYY-MM-DD'))\r",
+							"pm.collectionVariables.set(\"ENDdateZabota\",moment().add(1,'Days').add(1,'Year').format('YYYY-MM-DD'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "gw",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "su",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"TechData\": {\r\n        \"CorrelationId\": \"{{$randomUUID}}\",\r\n        \"ActionId\": \"0082b1da-24e8-4ff0-89d7-530dd535b91d\"\r\n    },\r\n    \"BusinessData\": {\r\n        \"BaseProductName\": \"PersonRGS\",\r\n        \"ContrAgent\": {\r\n            \"AgentLNR\": \"1454271\",\r\n            \"BranchCode\": 16207320,\r\n            \"SkName\": \"ECOSYS\"\r\n        },\r\n        \"Contract\": {\r\n            \"ContractsCount\": 1,\r\n            \"schemaVersion\": \"1.0\",\r\n            \"Contracts\": {\r\n                \"Contract\": [\r\n                    {\r\n                        \"Header\": {\r\n                            \"ContractId\": {\r\n                                \"Id\": \"145698756\",\r\n                                \"SysId\": \"AVINFORS\",\r\n                                \"Type\": \"CONTRACT\"\r\n                            },\r\n                            \"ContractVersionNumber\": 1,\r\n                            \"MainContractId\": {\r\n                                \"Id\": \"145698756\",\r\n                                \"SysId\": \"AVINFORS\",\r\n                                \"Type\": \"CONTRACT\"\r\n                            },\r\n                            \"ProductId\": {\r\n                                \"Id\": \"taxaidrgs_s_box\",\r\n                                \"SysId\": \"AVINFORS\",\r\n                                \"Type\": \"PRODUCT_TYPE\"\r\n                            },\r\n                            \"EntityTypeId\": {\r\n                                \"Id\": \"1\",\r\n                                \"SysId\": \"XML\",\r\n                                \"Type\": \"ENTITY_TYPE\"\r\n                            },\r\n                            \"Series\": \"8044\",\r\n                            \"Number\": \"{{NumberZabota}}\",\r\n                            \"SignDate\": \"{{SIGNdateZabota}}T00:00:00+03:00\",\r\n                            \"StartDate\": \"{{STARTdateZabota}}T00:00:00Z\",\r\n                            \"EndDate\": \"{{ENDdateZabota}}T00:00:00Z\",\r\n                            \"Currency\": {\r\n                                \"CurName\": \"RUB\",\r\n                                \"CurRate\": 1,\r\n                                \"CurDate\": \"2021-05-12T00:00:00Z\"\r\n                            },\r\n                            \"ContractStateSecret\": false,\r\n                            \"InsurerId\": {\r\n                                \"Id\": \"8cea3ca88e57192c09d17b815b4a8c3c\",\r\n                                \"SysId\": \"SCC2\",\r\n                                \"Type\": \"PERSON\"\r\n                            },\r\n                            \"SaleChannelId\": {\r\n                                \"Id\": \"120\",\r\n                                \"SysId\": \"SCC2\",\r\n                                \"Type\": \"DICTSALECHANNELTYPE200\"\r\n                            },\r\n                            \"Brokers\": {\r\n                                \"Broker\": [\r\n                                    {\r\n                                        \"PersonId\": {\r\n                                            \"Id\": \"1596f4f575709efca8bd9320674f330f\",\r\n                                            \"SysId\": \"SCC2\",\r\n                                            \"Type\": \"PERSON\"\r\n                                        },\r\n                                        \"Code\": \"1454271\"\r\n                                    }\r\n                                ]\r\n                            },\r\n                            \"InsurancePremiumFull\": 3000.0,\r\n                            \"InsurancePremiumFullRUB\": 3000.0,\r\n                            \"InsuranceSumFull\": 50000.0,\r\n                            \"InsuranceSumFullRUB\": 50000.0\r\n                        },\r\n                        \"Persons\": {\r\n                            \"Person\": [\r\n                                {\r\n                                    \"PersonId\": {\r\n                                        \"Id\": \"8cea3ca88e57192c09d17b815b4a8c3c\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"PERSONS\"\r\n                                    },\r\n                                    \"CountryCode\": \"643\",\r\n                                    \"PersonTypeId\": {\r\n                                        \"Id\": \"1\",\r\n                                        \"SysId\": \"XML\",\r\n                                        \"Type\": \"PERSON_TYPE\"\r\n                                    },\r\n                                    \"FirstNameRus\": \"{{firstNameENV}}\",\r\n                                    \"LastNameRus\": \"{{lastNameENV}}\",\r\n                                    \"MiddleNameRus\": \"{{middlenameENV}}\",\r\n                                    \"ShortNameRus\": \"{{lastNameENV}} {{firstNameENV}} {{middlenameENV}}\",\r\n                                    \"Birthday\": \"1990-09-08T00:00:00Z\",\r\n                                    \"Gender\": \"M\",\r\n                                    \"IsResident\": true,\r\n                                    \"Phones\": {\r\n                                        \"Phone\": [\r\n                                            {\r\n                                                \"TypeId\": {\r\n                                                    \"Id\": \"4\",\r\n                                                    \"SysId\": \"XML\",\r\n                                                    \"Type\": \"PHONE_TYPE\"\r\n                                                },\r\n                                                \"FullNumber\": \"+7(987)659-45-64\",\r\n                                                \"CountryCode\": \"7\",\r\n                                                \"Prefix\": \"987\",\r\n                                                \"Number\": \"6544567\"\r\n                                            }\r\n                                        ]\r\n                                    },\r\n                                    \"Documents\": {\r\n                                        \"Document\": [\r\n                                            {\r\n                                                \"DocTypeId\": {\r\n                                                    \"Id\": \"012\",\r\n                                                    \"SysId\": \"XML\",\r\n                                                    \"Type\": \"DOCUMENT_TYPE\"\r\n                                                },\r\n                                                \"DocSeries\": \"8456\",\r\n                                                \"DocNumber\": \"884864\"\r\n                                            }\r\n                                        ]\r\n                                    },\r\n                                    \"Emails\": {\r\n                                        \"Email\": [\r\n                                            {\r\n                                                \"EmailTypeId\": {\r\n                                                    \"Id\": \"1\",\r\n                                                    \"SysId\": \"XML\",\r\n                                                    \"Type\": \"EMAIL_TYPE\"\r\n                                                },\r\n                                                \"EmailAddress\": \"trr@trr.ru\"\r\n                                            }\r\n                                        ]\r\n                                    },\r\n                                    \"IsPublic\": false,\r\n                                    \"IsPublicRelative\": false\r\n                                },\r\n                                {\r\n                                    \"PersonId\": {\r\n                                        \"Id\": \"1596f4f575709efca8bd9320674f330f\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"PERSONS\"\r\n                                    },\r\n                                    \"CountryCode\": \"643\",\r\n                                    \"PersonTypeId\": {\r\n                                        \"Id\": \"1\",\r\n                                        \"SysId\": \"XML\",\r\n                                        \"Type\": \"PERSON_TYPE\"\r\n                                    },\r\n                                    \"FirstNameRus\": \"Андрей\",\r\n                                    \"LastNameRus\": \"Коробков\",\r\n                                    \"MiddleNameRus\": \"Олегович\",\r\n                                    \"Birthday\": \"1996-01-07T00:00:00Z\",\r\n                                    \"IsResident\": true,\r\n                                    \"IsPublic\": false,\r\n                                    \"IsPublicRelative\": false,\r\n                                    \"Gender\": \"M\",\r\n                                    \"Phones\": {\r\n                                        \"Phone\": [\r\n                                            {\r\n                                                \"TypeId\": {\r\n                                                    \"Id\": \"4\",\r\n                                                    \"SysId\": \"XML\",\r\n                                                    \"Type\": \"PHONE_TYPE\"\r\n                                                },\r\n                                                \"FullNumber\": \"+7(987)659-45-64\",\r\n                                                \"CountryCode\": \"7\",\r\n                                                \"Prefix\": \"987\",\r\n                                                \"Number\": \"6594564\"\r\n                                            }\r\n                                        ]\r\n                                    },\r\n                                    \"Documents\": {\r\n                                        \"Document\": [\r\n                                            {\r\n                                                \"DocTypeId\": {\r\n                                                    \"Id\": \"012\",\r\n                                                    \"SysId\": \"XML\",\r\n                                                    \"Type\": \"DOCUMENT_TYPE\"\r\n                                                },\r\n                                                \"DocSeries\": \"8656\",\r\n                                                \"DocNumber\": \"864764\"\r\n                                            }\r\n                                        ]\r\n                                    }\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"InsuredObjects\": {\r\n                            \"Person\": [\r\n                                {\r\n                                    \"ObjectId\": {\r\n                                        \"Id\": \"obj8cea3ca88e57192c09d17b815b4a8c3c\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"INSUREDOBJECT\"\r\n                                    },\r\n                                    \"PersonId\": {\r\n                                        \"Id\": \"8cea3ca88e57192c09d17b815b4a8c3c\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"PERSON\"\r\n                                    },\r\n                                    \"InsuranceVariant\": {\r\n                                        \"Id\": \"1\",\r\n                                        \"SysId\": \"AVINFORS\",\r\n                                        \"Type\": \"D_INSVARIANT\"\r\n                                    }\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"Coverage\": {\r\n                            \"Cover\": [\r\n                                {\r\n                                    \"CoverId\": {\r\n                                        \"Id\": \"e463b8931285bc57d92db92c56c6408d\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"COVER\"\r\n                                    },\r\n                                    \"InsuredObjectId\": {\r\n                                        \"Id\": \"obj8cea3ca88e57192c09d17b815b4a8c3c\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"INSUREDOBJECT\"\r\n                                    },\r\n                                    \"CoverTypeId\": {\r\n                                        \"Id\": \"deathaccident\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"DICTRISKOBJECTTYPE_22\"\r\n                                    },\r\n                                    \"InsSum\": 50000.0,\r\n                                    \"InsPrem\": 3000.0,\r\n                                    \"Currency\": {\r\n                                        \"CurName\": \"RUB\",\r\n                                        \"CurRate\": 1,\r\n                                        \"CurDate\": \"2021-06-02T00:00:00Z\"\r\n                                    },\r\n                                    \"InsuranceSumRUB\": 500000.0,\r\n                                    \"InsurancePremiumRUB\": 3000.0\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"PaymentScheduleList\": {\r\n                            \"PaymentSchedule\": [\r\n                                {\r\n                                    \"PaymentSum\": 3000,\r\n                                    \"Currency\": {\r\n                                        \"CurName\": \"RUB\",\r\n                                        \"CurRate\": 1,\r\n                                        \"CurDate\": \"2021-06-02T00:00:00Z\"\r\n                                    },\r\n                                    \"PaymentSumRUB\": 3000,\r\n                                    \"PaymentDeadLineDate\": \"2021-02-06T00:00:00Z\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"Invoices\": {\r\n                            \"Invoice\": [\r\n                                {\r\n                                    \"InvoiceId\": {\r\n                                        \"Id\": \"1582626298910625\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"INVOICE\"\r\n                                    },\r\n                                    \"Number\": \"56456465456\",\r\n                                    \"BranchCode\": \"16207320\",\r\n                                    \"PaymentMethodId\": {\r\n                                        \"Id\": \"1\",\r\n                                        \"SysId\": \"SCC2\",\r\n                                        \"Type\": \"INVOICE\"\r\n                                    },\r\n                                    \"Date\": \"2021-06-02T21:00:00Z\",\r\n                                    \"Currency\": {\r\n                                        \"CurName\": \"RUB\",\r\n                                        \"CurRate\": 1,\r\n                                        \"CurDate\": \"2021-06-02T00:00:00Z\"\r\n                                    },\r\n                                    \"PaymentSum\": 3000,\r\n                                    \"InvoiceProperties\": {\r\n                                        \"Property\": [\r\n                                            {\r\n                                                \"Key\": \"PaymentDocumentTypeId\",\r\n                                                \"Value\": \"19\"\r\n                                            },\r\n                                            {\r\n                                                \"Key\": \"Number\",\r\n                                                \"Value\": \"56456465456\"\r\n                                            }\r\n                                        ]\r\n                                    }\r\n                                }\r\n                            ]\r\n                        }\r\n                    }\r\n                ]\r\n            }\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/rest/policyservice/register",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"rest",
+						"policyservice",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.collectionVariables.set(\"NumberZabota\", _.random(111111111111,999999999999))",
+					"",
+					"",
+					"",
+					"//Fake ФИО",
+					"window = {};",
+					"pm.sendRequest(\"https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js\", (error, response) => {",
+					"var text = response.text();",
+					"(new Function(text))();",
+					"",
+					"window.faker.locale = \"ru\";",
+					"",
+					"var name = window.faker.name.firstName(gender=0);",
+					"",
+					"var name2 = window.faker.name.lastName(gender=0);",
+					"",
+					"var name3 = window.faker.name.firstName(gender=0);",
+					"",
+					"var name4 = window.faker.name.lastName(gender=0);",
+					"",
+					"",
+					"//console.log(name);",
+					"//console.log(name2);",
+					"",
+					"pm.collectionVariables.set(\"firstNameENV\", name )",
+					"pm.collectionVariables.set(\"lastNameENV\", name2 )",
+					"pm.collectionVariables.set(\"firstName2ENV\", name3 )",
+					"pm.collectionVariables.set(\"lastName2ENV\", name4 )",
+					"",
+					"",
+					"});",
+					"",
+					"",
+					"pm.collectionVariables.set(\"number\", _.random(11111111,99999999));",
+					"",
+					"const middlename = [\"Александрович\",\"Алексеевич\",\"Альбертович\",\"Анатольевич\",\"Андреевич\",\"Антонович\",\"Аркадьевич\",\"Арсеньевич\",\"Артёмович\",\"Борисович\",\"Вадимович\",\"Валентинович\",\"Валерьевич\",\"Васильевич\",\"Викторович\",\"Витальевич\",\"Владимирович\",\"Владиславович\",\"Вячеславович\",\"Геннадьевич\",\"Георгиевич\",\"Германович\",\"Григорьевич\",\"Даниилович\",\"Денисович\",\"Дмитриевич\",\"Евгеньевич\",\"Егорович\",\"Иванович\",\"Игнатьевич\",\"Игоревич\",\"Ильич\",\"Константинович\",\"Лаврентьевич\",\"Леонидович\",\"Лукич\",\"Макарович\",\"Максимович\",\"Матвеевич\",\"Михайлович\",\"Никитич\",\"Николаевич\",\"Олегович\",\"Романович\",\"Семёнович\",\"Сергеевич\",\"Станиславович\",\"Степанович\",\"Фёдорович\",\"Эдуардович\",\"Юрьевич\",\"Ярославович\"]",
+					"",
+					"pm.collectionVariables.set(\"middlenameENV\",_.shuffle(middlename)[0])",
+					"pm.collectionVariables.set(\"middlename2ENV\",_.shuffle(middlename)[0])"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "SIGNdateZabota",
+			"value": ""
+		},
+		{
+			"key": "STARTdateZabota",
+			"value": ""
+		},
+		{
+			"key": "ENDdateZabota",
+			"value": ""
+		},
+		{
+			"key": "NumberZabota",
+			"value": ""
+		},
+		{
+			"key": "number",
+			"value": ""
+		},
+		{
+			"key": "middlenameENV",
+			"value": ""
+		},
+		{
+			"key": "middlename2ENV",
+			"value": ""
+		},
+		{
+			"key": "firstNameENV",
+			"value": ""
+		},
+		{
+			"key": "lastNameENV",
+			"value": ""
+		},
+		{
+			"key": "firstName2ENV",
+			"value": ""
+		},
+		{
+			"key": "lastName2ENV",
+			"value": ""
+		}
+	]
+}

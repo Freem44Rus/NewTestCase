@@ -1,0 +1,189 @@
+{
+	"id": "8e97a534-5786-4354-ab60-76f3b7e6e9a8",
+	"name": "TST06",
+	"values": [
+		{
+			"key": "URL",
+			"value": "https://gwpc-tst06.rgs.ru/pc",
+			"enabled": true
+		},
+		{
+			"key": "number",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "UserNameAuth",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "UserPassAuth",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "BoxID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "BoxNumber",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "BoxSeries",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "code2",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "KVITOVKA",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "lastName",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "firstName",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "code3",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "NumberTele2",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "ExpPaymentPublicId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "NumberТеле2",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "SeriesТеле2",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "InsurancePremiumFullRUB",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "middlename",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "NumberKVITOVKA",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "SeriesKVITOVKA",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "CARDNUMBER",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "middlename2",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "firstName2",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "lastName2",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "numberVIN",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "vvkochurovalogin",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "vvkochurovapass",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "numberPhone",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "middlename3",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "firstName3",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "lastName3",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "AutoVIN",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "KaskoMini",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "PolicyPremiumWithAddAgreements",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "UUIDMini",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "phoneauto",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2021-05-07T08:58:26.149Z",
+	"_postman_exported_using": "Postman/8.3.1"
+}
